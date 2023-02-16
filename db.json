@@ -1,0 +1,16 @@
+{
+  "todos": [
+    {
+      "id": "e1cea628-94c6-455e-8ac9-2d6a26c1cfac",
+      "date": "2023. 1. 19.",
+      "todo": "타입스크립트",
+      "isDone": true
+    },
+    {
+      "id": "d5627725-67aa-4849-ab0a-1e0fc44dbeea",
+      "date": "2023. 1. 19.",
+      "todo": "투두리스트 리팩토링",
+      "isDone": false
+    }
+  ]
+}

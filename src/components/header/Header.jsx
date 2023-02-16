@@ -1,56 +1,46 @@
-import "./style.css";
+import { Content, Title, Input, InputTodo, InputBtn } from "./style";
 import {useState} from "react";
 import {v4 as uuid} from "uuid";
+import {useDispatch} from "react-redux";
+import {addTodo} from "../../redux/modules/manageTodo";
 
-export default function Header({list, setList}) {
-    // console.log("Header - props의 list", list);
+const Header = () => {
+    const dispatch = useDispatch();
 
-    const [date, setDate] = useState("");
+    // 인풋 지역상태 관리
     const [todo, setTodo] = useState("");
 
-    // 리스트 추가
-    const addList = () => {
-        const newList = {
-            id: uuid(),
-            date,
-            todo,
-            isDone: false,
-        };
-        
-        if (date && todo) {
-            // setState는 항상 이전값을 인자로 갖는다.
-            // 배열을 변경하는 경우, setState((이전값) => {})
-            setDate("");
-            setTodo("");
-            setList([...list, newList]);        //[이전값, 이전값 이후에 새로 추가할 값]
+    // 투두리스트 추가
+    const addBtn = () => {
+        if (!todo) {
+            alert("빠진 내용이 없나 확인해보세요.");
         } else {
-            alert("빠트린 내용이 없나 다시 한번 확인하세요.");
+            setTodo("");
+            dispatch(
+                addTodo({
+                    id: uuid(),
+                    date: new Date().toLocaleDateString(),
+                    todo,
+                    isDone: false,
+                })
+            );
         }
     };
 
     return (
-        <div className="header">
-            <h1 className="title">Todo-list</h1>
-            <div className="input">
-                <input
-                    className="input-date"
-                    value={date}
-                    placeholder="date"
-                    onChange={(e) => setDate(e.target.value)}
+        <Content>
+            <Title>Todolist</Title>
+            <Input>
+                <InputTodo
+                    placeholder="Do your job!"
+                    value={todo}
+                    onChange={(e) => setTodo(e.target.value)}
                     autoFocus
                 />
-                <input
-                    className="input-add"
-                    value={todo}
-                    placeholder="Do your job!"
-                    onChange={(e) => setTodo(e.target.value)}
-                />
-                <button className="input-btn" onClick={addList}>
-                    추가
-                </button>
-            </div>
-        </div>
+                <InputBtn onClick={addBtn}>add</InputBtn>
+            </Input>
+        </Content>
     );
-}
+};
 
-// 빈칸일시 추가 불가 alert => 빈칸 focusing
+export default Header;

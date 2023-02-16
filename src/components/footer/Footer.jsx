@@ -1,7 +1,7 @@
-import "./style.css";
+import { Content } from "./style";
 
 const Footer = () => {
-    return <div className="footer">jiyoung</div>;
+    return <Content>jiyoung</Content>;
 };
 
 export default Footer;
